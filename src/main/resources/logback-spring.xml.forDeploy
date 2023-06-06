@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration>
+    <property name="LOGS" value="/app/itoss/itoss-manager/logs"/>
+    <appender name="STDOUT"
+              class="ch.qos.logback.core.ConsoleAppender">
+        <!-- encoders are assigned the type ch.qos.logback.classic.encoder.PatternLayoutEncoder
+            by default <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{5} - %msg%n</pattern>
+            <pattern>%msg%n</pattern> -->
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n
+            </pattern>
+        </encoder>
+
+    </appender>
+
+    <!-- this config is for logback framework -->
+    <logger name="com.zaxxer.hikari" level="error"
+            additivity="false">
+        <appender-ref ref="STDOUT"/>
+    </logger>
+    <logger name="org.hibernate.engine.jdbc.spi.SqlExceptionHelper"
+            level="OFF" additivity="false">
+        <appender-ref ref="STDOUT"/>
+    </logger>
+    <appender name="FILE"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOGS}/itoss-manager.log</file>
+
+        <rollingPolicy
+                class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <fileNamePattern>${LOGS}/itoss-manager_logs/itoss-manager.%i.log
+            </fileNamePattern>
+            <minIndex>1</minIndex>
+            <maxIndex>5</maxIndex>
+        </rollingPolicy>
+
+        <triggeringPolicy
+                class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <maxFileSize>50MB</maxFileSize>
+        </triggeringPolicy>
+        <encoder>
+            <charset>UTF-8</charset>
+            <pattern>%d %-4relative [%thread] %-5level %logger{35} - %msg%n
+            </pattern>
+        </encoder>
+
+    </appender>
+
+
+    <!-- Strictly speaking, the level attribute is not necessary since -->
+    <!-- the level of the root level is set to DEBUG by default. -->
+    <root level="INFO">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="FILE"/>
+
+
+    </root>
+
+</configuration>

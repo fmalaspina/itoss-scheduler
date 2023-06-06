@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "itoss.collector.configuration.cron",
+      "type": "java.lang.String",
+      "description": "Description for itoss.collector.configuration.cron."
+  }
+] }
